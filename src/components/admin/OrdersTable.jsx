@@ -1,39 +1,69 @@
-import mockOrders from "../../data/mockOrders";
+import React from "react";
 
-export default function OrdersTable() {
+const OrdersTable = () => {
+    // Temporary static data (later this will come from API)
+    const orders = [
+        {
+            id: 1,
+            customer: "John Doe",
+            phone: "670000001",
+            address: "Bamenda",
+            status: "Pending",
+            amount: "5,000 FCFA",
+        },
+        {
+            id: 2,
+            customer: "Mary Smith",
+            phone: "670000002",
+            address: "Bambili",
+            status: "Delivered",
+            amount: "8,500 FCFA",
+        },
+    ];
+
     return (
-        <div className="bg-white shadow rounded-lg overflow-hidden">
-            <table className="min-w-full text-sm text-left">
-                <thead className="bg-gray-200 text-gray-700">
-                    <tr>
-                        <th className="p-3">Order ID</th>
-                        <th className="p-3">Customer</th>
-                        <th className="p-3">Driver</th>
-                        <th className="p-3">Status</th>
-                        <th className="p-3">Amount</th>
-                    </tr>
-                </thead>
+        <div className="p-6">
+            <h2 className="text-xl font-semibold mb-4">All Orders</h2>
 
-                <tbody>
-                    {mockOrders.map(order => (
-                        <tr key={order.id} className="border-t hover:bg-gray-50">
-                            <td className="p-3">{order.id}</td>
-                            <td className="p-3">{order.customer}</td>
-                            <td className="p-3">{order.driver}</td>
-                            <td className="p-3">
-                                <span className={`px-2 py-1 rounded text-white text-xs
-                  ${order.status === "Pending" && "bg-yellow-500"}
-                  ${order.status === "In Transit" && "bg-blue-500"}
-                  ${order.status === "Delivered" && "bg-green-600"}
-                `}>
-                                    {order.status}
-                                </span>
-                            </td>
-                            <td className="p-3 font-semibold">{order.amount}</td>
+            <div className="overflow-x-auto bg-white rounded shadow">
+                <table className="min-w-full border-collapse">
+                    <thead className="bg-gray-100">
+                        <tr>
+                            <th className="p-3 text-left">#</th>
+                            <th className="p-3 text-left">Customer</th>
+                            <th className="p-3 text-left">Phone</th>
+                            <th className="p-3 text-left">Address</th>
+                            <th className="p-3 text-left">Amount</th>
+                            <th className="p-3 text-left">Status</th>
+                            <th className="p-3 text-left">Action</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+                        {orders.map((order) => (
+                            <tr key={order.id} className="border-t">
+                                <td className="p-3">{order.id}</td>
+                                <td className="p-3">{order.customer}</td>
+                                <td className="p-3">{order.phone}</td>
+                                <td className="p-3">{order.address}</td>
+                                <td className="p-3 font-medium">{order.amount}</td>
+                                <td className="p-3">
+                                    <span className="px-3 py-1 rounded-full text-sm bg-yellow-100 text-yellow-700">
+                                        {order.status}
+                                    </span>
+                                </td>
+                                <td className="p-3">
+                                    <button className="text-blue-600 hover:underline">
+                                        View
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
-}
+};
+
+export default OrdersTable;
