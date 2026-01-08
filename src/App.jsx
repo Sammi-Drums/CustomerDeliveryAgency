@@ -1,77 +1,38 @@
-// import { Routes, Route } from "react-router-dom";
 
+
+// import { Routes, Route } from "react-router-dom";
 // import MainLayout from "./layouts/MainLayout";
 // import AdminLayout from "./layouts/AdminLayout";
-// import DriverLayout from "./layouts/DriverLayout";
-// import OrderDetails from "./pages/OrderDetails";
-// import DriverOrder from "./pages/DriverOrder";
+// import AdminOrderDetails from "./pages/admin/AdminOrderDetails";
 
 // import Home from "./pages/Home";
 // import CreateOrder from "./pages/CreateOrder";
 // import Orders from "./pages/Orders";
-// import AdminDashboard from "./pages/admin/Dashboard";
-// import DriverDashboard from "./pages/driver/Dashboard";
+// import AdminOrders from "./pages/admin/AdminOrders";
 
 // function App() {
 //   return (
 //     <Routes>
-//       {/* Public / Customer */}
-//       <Route
-//         path="/"
-//         element={
-//           <MainLayout>
-//             <Home />
-//           </MainLayout>
-//         }
-//       />
-//       <Route
-//         path="/orders/:id"
-//         element={
-//           <MainLayout>
-//             <OrderDetails />
-//           </MainLayout>
-//         }
-//       />
 
-//       <Route
-//         path="/create-order"
-//         element={
-//           <MainLayout>
-//             <CreateOrder />
-//           </MainLayout>
-//         }
-//       />
-//       <Route
-//         path="/orders"
-//         element={
-//           <MainLayout>
-//             <Orders />
-//           </MainLayout>
-//         }
-//       />
+//       {/* Public */}
+//       <Route element={<MainLayout />}>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/create-order" element={<CreateOrder />} />
+//         <Route path="/orders" element={<Orders />} />
+//       </Route>
 
 //       {/* Admin */}
-//       <Route
-//         path="/admin"
-//         element={
-//           <AdminLayout>
-//             <AdminDashboard />
-//           </AdminLayout>
-//         }
-//       />
+//       <Route path="/admin" element={<AdminLayout />}>
+//         <Route path="orders" element={<AdminOrders />} />
+//       </Route>
+//       <Route path="/admin" element={<AdminLayout />}>
+//         <Route path="orders" element={<AdminOrders />} />
+//         <Route path="orders/:id" element={<AdminOrderDetails />} />
+//       </Route>
+//       <Route path="/admin/orders" element={<AdminOrders />} />
+//       <Route path="/admin/orders/:id" element={<AdminOrderDetails />} />
 
-//       {/* Driver */}
-//       <Route
-//         path="/driver"
-//         element={
-//           <DriverLayout>
-//             <DriverDashboard />
-//           </DriverLayout>
-//         }
-//       />
-//       <Route path="/driver/order"
-//         element={
-//           <DriverOrder />} />
+
 //     </Routes>
 //   );
 // }
@@ -80,35 +41,34 @@
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import AdminLayout from "./layouts/AdminLayout";
-import AdminOrderDetails from "./pages/admin/AdminOrderDetails";
 
 import Home from "./pages/Home";
 import CreateOrder from "./pages/CreateOrder";
 import Orders from "./pages/Orders";
+
 import AdminOrders from "./pages/admin/AdminOrders";
+import AdminDrivers from "./pages/admin/AdminDrivers";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminAnalytics from "./pages/admin/AdminAnalytics";
 
 function App() {
   return (
     <Routes>
 
-      {/* Public */}
+      {/* MAIN USER ROUTES */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/create-order" element={<CreateOrder />} />
         <Route path="/orders" element={<Orders />} />
       </Route>
 
-      {/* Admin */}
+      {/* ADMIN ROUTES */}
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="orders" element={<AdminOrders />} />
+        <Route path="drivers" element={<AdminDrivers />} />
+        <Route path="users" element={<AdminUsers />} />
+        <Route path="analytics" element={<AdminAnalytics />} />
       </Route>
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route path="orders" element={<AdminOrders />} />
-        <Route path="orders/:id" element={<AdminOrderDetails />} />
-      </Route>
-      <Route path="/admin/orders" element={<AdminOrders />} />
-      <Route path="/admin/orders/:id" element={<AdminOrderDetails />} />
-
 
     </Routes>
   );
