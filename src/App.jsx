@@ -46,6 +46,12 @@ import Home from "./pages/Home";
 import CreateOrder from "./pages/CreateOrder";
 import Orders from "./pages/Orders";
 
+import VendorLayout from "./layouts/VendorLayout";
+
+import VendorDashboard from "./pages/vendor/VendorDashboard";
+import VendorCreateOrder from "./pages/vendor/VendorCreateOrder";
+import VendorOrders from "./pages/vendor/VendorOrders";
+
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminDrivers from "./pages/admin/AdminDrivers";
 import AdminUsers from "./pages/admin/AdminUsers";
@@ -69,6 +75,13 @@ function App() {
         <Route path="users" element={<AdminUsers />} />
         <Route path="analytics" element={<AdminAnalytics />} />
       </Route>
+      {/* VENDOR ROUTES */}
+      <Route path="/vendor" element={<VendorLayout />}>
+        <Route path="dashboard" element={<VendorDashboard />} />
+        <Route path="create-order" element={<VendorCreateOrder />} />
+        <Route path="orders" element={<VendorOrders />} />
+      </Route>
+
 
     </Routes>
   );
