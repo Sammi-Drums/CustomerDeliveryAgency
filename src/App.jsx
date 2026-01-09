@@ -47,10 +47,17 @@ import CreateOrder from "./pages/CreateOrder";
 import Orders from "./pages/Orders";
 
 import VendorLayout from "./layouts/VendorLayout";
-
 import VendorDashboard from "./pages/vendor/VendorDashboard";
 import VendorCreateOrder from "./pages/vendor/VendorCreateOrder";
 import VendorOrders from "./pages/vendor/VendorOrders";
+
+import DriverLayout from "./layouts/DriverLayout";
+import DriverOrders from "./pages/driver/DriverOrders";
+import DriverHistory from "./pages/driver/DriverHistory";
+
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+
 
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminDrivers from "./pages/admin/AdminDrivers";
@@ -66,6 +73,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/create-order" element={<CreateOrder />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Route>
 
       {/* ADMIN ROUTES */}
@@ -80,6 +89,11 @@ function App() {
         <Route path="dashboard" element={<VendorDashboard />} />
         <Route path="create-order" element={<VendorCreateOrder />} />
         <Route path="orders" element={<VendorOrders />} />
+      </Route>
+      {/* DRIVER ROUTES */}
+      <Route path="/driver" element={<DriverLayout />}>
+        <Route path="orders" element={<DriverOrders />} />
+        <Route path="history" element={<DriverHistory />} />
       </Route>
 
 
