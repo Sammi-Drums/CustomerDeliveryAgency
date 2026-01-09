@@ -1,50 +1,44 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(
+        JSON.parse(localStorage.getItem("currentUser")) || null
+    );
 
-    // Load user on refresh
-    useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
+    // Register
+    const register = (data) => {
+        const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Fake login
+        users.push(data);
+        localStorage.setItem("users", JSON.stringify(users));
+
+        console.log("Registered:", data);
+
+        return true;
+    };
+
+    // Login
     const login = (email, password) => {
-        // MOCK USERS
-        const fakeUser = {
-            id: 1,
-            name: "Admin User",
-            email,
-            role: "admin", // admin | vendor | driver
-        };
+        const users = JSON.parse(localStorage.getItem("users")) || [];
 
-        localStorage.setItem("user", JSON.stringify(fakeUser));
-        setUser(fakeUser);
-        return true;
+        const foundUser = users.find(
+            (u) => u.email === email && u.password === password
+        );
+
+        if (!foundUser) return null;
+
+        setUser(foundUser);
+        localStorage.setItem("currentUser", JSON.stringify(foundUser));
+
+        return foundUser;
     };
 
-    // Fake register
-    const register = (name, email, password) => {
-        const newUser = {
-            id: Date.now(),
-            name,
-            email,
-            role: "vendor",
-        };
-
-        localStorage.setItem("user", JSON.stringify(newUser));
-        setUser(newUser);
-        return true;
-    };
 
     const logout = () => {
-        localStorage.removeItem("user");
         setUser(null);
+        localStorage.removeItem("currentUser");
     };
 
     return (
@@ -55,4 +49,3 @@ export function AuthProvider({ children }) {
 }
 
 export const useAuth = () => useContext(AuthContext);
-
