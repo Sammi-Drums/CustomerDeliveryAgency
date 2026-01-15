@@ -22,4 +22,16 @@ const mockOrders = [
     },
 ];
 
+export const orders = [
+  {
+    id: "ORD001",
+    customer: "John Doe",
+    vendor: "Fresh Market",
+    pickupLocation: "Off Station",
+    deliveryLocation: "Hospital Roundabout",
+    status: "CONFIRMED_BY_VENDOR",
+    assignedDriver: null,
+  }
+];
+
 export default mockOrders;

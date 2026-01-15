@@ -57,7 +57,7 @@ import DriverHistory from "./pages/driver/DriverHistory";
 
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminDrivers from "./pages/admin/AdminDrivers";
@@ -78,20 +78,41 @@ function App() {
       </Route>
 
       {/* ADMIN ROUTES */}
-      <Route path="/admin" element={<AdminLayout />}>
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="orders" element={<AdminOrders />} />
         <Route path="drivers" element={<AdminDrivers />} />
         <Route path="users" element={<AdminUsers />} />
         <Route path="analytics" element={<AdminAnalytics />} />
       </Route>
       {/* VENDOR ROUTES */}
-      <Route path="/vendor" element={<VendorLayout />}>
+      <Route
+        path="/vendor"
+        element={
+          <ProtectedRoute allowedRoles={["vendor"]}>
+            <VendorLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="dashboard" element={<VendorDashboard />} />
         <Route path="create-order" element={<VendorCreateOrder />} />
         <Route path="orders" element={<VendorOrders />} />
       </Route>
       {/* DRIVER ROUTES */}
-      <Route path="/driver" element={<DriverLayout />}>
+      <Route
+        path="/driver"
+        element={
+          <ProtectedRoute allowedRoles={["driver"]}>
+            <DriverLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="orders" element={<DriverOrders />} />
         <Route path="history" element={<DriverHistory />} />
       </Route>

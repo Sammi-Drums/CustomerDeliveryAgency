@@ -1,37 +1,67 @@
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
+import { useState } from "react";
+import {
+    FaBox,
+    FaUsers,
+    FaTruck,
+    FaChartBar,
+    FaBars
+} from "react-icons/fa";
 
 export default function AdminLayout() {
+    const [collapsed, setCollapsed] = useState(false);
+
+    const linkClass = ({ isActive }) =>
+        `flex items-center gap-3 px-4 py-2 rounded
+     transition
+     ${isActive ? "bg-blue-600 text-white" : "text-gray-300 hover:bg-gray-800"}`;
+
     return (
-        <div className="min-h-screen flex bg-gray-100">
+        <div className="min-h-screen flex">
 
             {/* Sidebar */}
-            <aside className="w-64 bg-gray-900 text-white p-5">
-                <h2 className="text-xl font-bold mb-8">Admin Panel</h2>
+            <aside
+                className={`bg-gray-900 text-white
+        ${collapsed ? "w-20" : "w-64"}
+        transition-all duration-300`}
+            >
 
-                <nav className="space-y-4 text-sm">
-                    <Link to="/admin/orders" className="block hover:text-blue-400">
-                        Orders
-                    </Link>
+                {/* Header */}
+                <div className="flex items-center justify-between p-4">
+                    {!collapsed && <h2 className="font-bold text-lg">Admin Panel</h2>}
+                    <button onClick={() => setCollapsed(!collapsed)}>
+                        <FaBars />
+                    </button>
+                </div>
 
-                    <Link to="/admin/drivers" className="block hover:text-blue-400">
-                        Drivers
-                    </Link>
+                {/* Nav */}
+                <nav className="space-y-2 mt-4">
+                    <NavLink to="/admin/orders" className={linkClass}>
+                        <FaBox />
+                        {!collapsed && "Orders"}
+                    </NavLink>
 
-                    <Link to="/admin/users" className="block hover:text-blue-400">
-                        Users
-                    </Link>
+                    <NavLink to="/admin/drivers" className={linkClass}>
+                        <FaTruck />
+                        {!collapsed && "Drivers"}
+                    </NavLink>
 
-                    <Link to="/admin/analytics" className="block hover:text-blue-400">
-                        Analytics
-                    </Link>
+                    <NavLink to="/admin/users" className={linkClass}>
+                        <FaUsers />
+                        {!collapsed && "Users"}
+                    </NavLink>
+
+                    <NavLink to="/admin/analytics" className={linkClass}>
+                        <FaChartBar />
+                        {!collapsed && "Analytics"}
+                    </NavLink>
                 </nav>
             </aside>
 
             {/* Content */}
-            <main className="flex-1 p-6">
+            <main className="flex-1 bg-gray-100 p-6">
                 <Outlet />
             </main>
-
         </div>
     );
 }
