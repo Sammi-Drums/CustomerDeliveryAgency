@@ -1,40 +1,56 @@
-import { useOrders } from "../../context/OrderContext";
-import { useAuth } from "../../context/AuthContext";
+import DeliveryCard from "../../components/driver/DeliveryCard";
 
 export default function DriverDashboard() {
-    const { orders, updateStatus } = useOrders();
-    const { user } = useAuth();
-
     return (
-        <div>
-            <h2 className="text-xl font-bold mb-4">My Deliveries</h2>
+        <div className="space-y-6">
 
-            {orders
-                .filter(o => o.driverId === user.id)
-                .map(order => (
-                    <div key={order.id} className="bg-white p-4 mb-3 rounded shadow">
-                        <p>{order.pickup} → {order.dropoff}</p>
-                        <p>Status: {order.status}</p>
+            {/* Page Header */}
+            <div>
+                <h1 className="text-2xl font-bold text-gray-800">
+                    Driver Dashboard
+                </h1>
+                <p className="text-gray-500 text-sm">
+                    Available and assigned deliveries
+                </p>
+            </div>
 
-                        {order.status === "assigned" && (
-                            <button
-                                onClick={() => updateStatus(order.id, "picked")}
-                                className="bg-yellow-500 text-white px-3 py-1 rounded"
-                            >
-                                Picked Up
-                            </button>
-                        )}
+            {/* Summary Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-white rounded shadow p-4">
+                    <p className="text-sm text-gray-500">Available Jobs</p>
+                    <h2 className="text-2xl font-bold">3</h2>
+                </div>
 
-                        {order.status === "picked" && (
-                            <button
-                                onClick={() => updateStatus(order.id, "delivered")}
-                                className="bg-green-600 text-white px-3 py-1 rounded"
-                            >
-                                Delivered
-                            </button>
-                        )}
-                    </div>
-                ))}
+                <div className="bg-white rounded shadow p-4">
+                    <p className="text-sm text-gray-500">In Progress</p>
+                    <h2 className="text-2xl font-bold">1</h2>
+                </div>
+
+                <div className="bg-white rounded shadow p-4">
+                    <p className="text-sm text-gray-500">Completed</p>
+                    <h2 className="text-2xl font-bold">12</h2>
+                </div>
+            </div>
+
+            {/* Deliveries List */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <DeliveryCard
+                    orderId="ORD-1023"
+                    pickup="Hospital Roundabout"
+                    dropoff="Up Station"
+                    status="available"
+                />
+
+                <DeliveryCard
+                    orderId="ORD-1024"
+                    pickup="Food Market"
+                    dropoff="Commercial Avenue"
+                    status="in-progress"
+                />
+
+            </div>
+
         </div>
     );
 }
